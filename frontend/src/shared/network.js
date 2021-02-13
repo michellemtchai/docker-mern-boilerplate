@@ -16,6 +16,15 @@ export const fetchConfig = (props, stateFnName, {
 	};
 }
 
+export const fetchAPIData = (props, url, setStateFnName, {
+        method = 'GET', params = {},
+        formatData = data=>data, minStored = 0
+    }={})=>{
+    fetchData(baseUrl+url, fetchConfig(props, setStateFnName, {
+        formatData: formatData,
+    }));
+}
+
 export const fetchData = (url, config)=>{
 	url = setUpURL(url, config);
 	let storageName = `${config.method} ${url}`;

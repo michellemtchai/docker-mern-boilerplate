@@ -5,19 +5,11 @@ import FetchIndicator from '../components/fetchIndicator';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
-import { fetchConfig, fetchData, baseUrl } from '../shared/network';
+import { getAllItems } from './fetch';
 
 class App extends React.Component {
     componentDidMount(){
-        let url = baseUrl+'/items';
-        let formatData = (data)=>{
-            return {
-                items: data
-            }
-        }
-        fetchData(url, fetchConfig(this.props, 'setData', {
-            formatData: formatData,
-        }));
+        getAllItems(this.props);
     }
 	render() {
 		return(
