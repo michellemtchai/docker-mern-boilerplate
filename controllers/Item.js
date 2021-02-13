@@ -11,7 +11,7 @@ module.exports = Item = (app) =>{
          * @apiGroup Item
          *
          * @apiSuccess {String} name Name of item.
-         * @apiSuccess {Date} date Time this search was made.
+         * @apiSuccess {Date} date Time this item was made.
          *
          * @apiSuccessExample {json} Success-Response:
          *     HTTP/1.1 200 OK
@@ -46,7 +46,7 @@ module.exports = Item = (app) =>{
          *     }
          *
          * @apiSuccess {String} name Name of item.
-         * @apiSuccess {Date} date Time this search was made.
+         * @apiSuccess {Date} date Time this item was made.
          *
          * @apiSuccessExample {json} Success-Response:
          *     HTTP/1.1 200 OK
