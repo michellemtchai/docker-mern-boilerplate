@@ -1,3 +1,6 @@
+export const baseUrl = process.env.APP_ENV == 'development' ?
+	`http://localhost:${process.env.PORT}`: '';
+
 export const getData = (url, stateFn, errorFn)=>{
 	url = encodeURI(url);
 	const cacheData = localStorage.getItem(url);

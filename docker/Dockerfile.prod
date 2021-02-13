@@ -5,6 +5,7 @@ RUN mkdir /frontend
 WORKDIR /frontend
 
 COPY ./frontend /frontend
+COPY .env .
 
 RUN yarn --silent
 

@@ -1,7 +1,17 @@
+require('dotenv').config({path: '/.env'});
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
+const getEnv = (list)=>{
+    let env = {};
+    list.forEach(item=>{
+        env['process.env.'+item]= JSON.stringify(process.env[item]);
+    })
+    return env;
+}
 
 module.exports = {
     mode: 'development',
@@ -38,6 +48,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin(getEnv([
+            'APP_ENV',
+            'PORT'
+        ])),
         new MiniCssExtractPlugin({
             filename: "bundle.css"
         })
@@ -49,7 +63,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,
         compress: true,
-        port: 8080,
+        port: process.env.FRONTEND_PORT,
         watchOptions: {
             poll: true
         },
@@ -69,5 +83,8 @@ module.exports = {
             }),
             new CssMinimizerPlugin(),
         ]
+    },
+    node: {
+       fs: "empty"
     }
 };

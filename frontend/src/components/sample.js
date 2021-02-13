@@ -1,13 +1,21 @@
 import React from 'react';
-import { getData } from '../shared/helper';
 
 class Sample extends React.Component {
 	render() {
-		return (
-			<p>
-                This is a sample component.
-			</p>
-		);
+        let items = this.props.sample.data.items;
+		return items ?
+			<div>
+                <p>
+                    This is a sample component.
+                    It lists the items from route <b>GET &#47;items</b>
+                </p>
+                <ul>
+                    {items.map((item, i)=>
+                        <li key={'item-'+i}>{item.name}</li>
+                    )}
+                </ul>
+			</div> :
+            '';
   	}
 }
 

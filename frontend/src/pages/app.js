@@ -4,8 +4,13 @@ import NavBar from '../components/navBar';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
+import { getData, baseUrl } from '../shared/helper';
 
 class App extends React.Component {
+    componentDidMount(){
+        let url = baseUrl+'/items';
+        getData(url, this.props.setData, this.props.setError);
+    }
 	render() {
 		return(
             <div className='content'>

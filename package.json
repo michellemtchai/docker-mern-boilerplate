@@ -11,7 +11,7 @@
     "main": "server.js",
     "scripts": {
         "prod": "node server.js",
-        "start": "supervisor server.js",
+        "start": "supervisor -i /public,/frontend server.js ",
         "doc": "apidoc -i . -o ./.apidocs/ -f \".*\\.js$\" -f \".*\\.ts$\" -e ./node_modules -e ./.apidocs"
     },
     "dependencies": {
