@@ -1,4 +1,4 @@
-import App from '../pages/app';
+import App from '../config/app';
 import { connect } from 'react-redux';
 import * as app from '../actions/app';
 
