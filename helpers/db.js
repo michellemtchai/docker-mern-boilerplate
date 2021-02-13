@@ -30,7 +30,6 @@ module.exports = db = {
         if(common.isArray(conditions)){
             let combined = {};
             conditions.forEach(i=>combined = {...combined, ...i});
-            console.log(combined);
             return combined;
         }
         else {
