@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { routes } from '../shared/routes';
+import { routes, navlinks } from '../config/routes';
 
 class NavBar extends React.Component {
 	render() {
         let curr = this.props.router.location.pathname;
-        let links = ['/', '/about-us'];
 		return (
             <nav>
-                {links.map((link, i)=>
+                {navlinks.map((link, i)=>
                     <Link className={curr==link ? 'curr-page': ''}
                         key={'link-'+i}
                         to={link}>

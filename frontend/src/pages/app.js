@@ -3,7 +3,7 @@ import Error from '../components/error';
 import NavBar from '../components/navBar';
 
 import { Switch, Route } from 'react-router-dom';
-import { routes } from '../shared/routes';
+import { routes } from '../config/routes';
 
 class App extends React.Component {
 	render() {

@@ -2,6 +2,8 @@ import Home from '../pages/home';
 import AboutUs from '../pages/aboutUs';
 import NotFound from '../pages/notFound';
 
+export const navlinks = ['/', '/about-us'];
+
 export const routes = {
     '/': {
         component: Home,
