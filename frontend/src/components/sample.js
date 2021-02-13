@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchData } from '../shared/helper';
+import { getData } from '../shared/helper';
 
 class Sample extends React.Component {
 	render() {

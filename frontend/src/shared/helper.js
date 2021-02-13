@@ -1,11 +1,11 @@
-export const fetchData = (url, stateFn, errorFn)=>{
+export const getData = (url, stateFn, errorFn)=>{
 	url = encodeURI(url);
 	const cacheData = localStorage.getItem(url);
 	if(cacheData){
 		let data = JSON.parse(cacheData);
 		if(timeDiffMinutes(data.date) > 5){
 			localStorage.removeItem(url);
-			fetchData(url, stateFn, errorFn);
+			getData(url, stateFn, errorFn);
 		}
 		else{
 			stateFn(data.data);
