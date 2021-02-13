@@ -31,6 +31,9 @@ module.exports = Item = (app) =>{
                 sort: {
                     date: -1
                 },
+                select: {
+                    __v: 0
+                }
             });
          },
 
@@ -64,9 +67,8 @@ module.exports = Item = (app) =>{
         create: (req, res) => {
             let required = ['name'];
             let createItem = ()=>{
-                let model = new Item({
-                    name: req.body.name
-                });
+                let permitted = common.permit(req.body, ['name']);
+                let model = new Item(permitted);
                 db.modelSave(model, res, common.redirect(res, '/items'));
             };
             common.requiredParams(req.body, res, required, createItem);
