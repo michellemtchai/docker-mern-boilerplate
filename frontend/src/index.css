@@ -16,3 +16,15 @@ body{
     font-weight: bold;
     padding: 20px;
 }
+nav a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+}
+nav a:hover{
+    color: royalblue;
+}
+a.curr-page {
+    text-decoration: underline;
+    font-weight: bold;
+}

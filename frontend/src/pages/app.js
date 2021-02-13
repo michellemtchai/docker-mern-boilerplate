@@ -1,13 +1,27 @@
 import React from 'react';
 import Error from '../components/error';
-import Sample from '../components/sample';
+import NavBar from '../components/navBar';
+
+import { Switch, Route } from 'react-router-dom';
+import { routes } from '../shared/routes';
 
 class App extends React.Component {
 	render() {
-        return (
+		return(
             <div className='content'>
+                <NavBar {...this.props}/>
                 <Error {...this.props}/>
-                <Sample {...this.props}/>
+                <Switch>
+                    {Object.keys(routes).map((key,i)=>
+                        <Route key={'route-'+i}
+                            exact={routes[key].exact? true: false}
+                            path={key}
+                            component={()=>
+                                (new routes[key].component(this.props)).render()
+                            }
+                        />
+                    )}
+                </Switch>
             </div>
         );
   	}
