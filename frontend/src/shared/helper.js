@@ -1,12 +1,12 @@
 export const baseUrl = process.env.APP_ENV == 'development' ?
 	`http://localhost:${process.env.PORT}`: '';
 
-export const getData = (url, stateFn, errorFn)=>{
+export const getData = (url, stateFn, errorFn, minStored = 0)=>{
 	url = encodeURI(url);
 	const cacheData = localStorage.getItem(url);
 	if(cacheData){
 		let data = JSON.parse(cacheData);
-		if(timeDiffMinutes(data.date) > 5){
+		if(timeDiffMinutes(data.date) > minStored){
 			localStorage.removeItem(url);
 			getData(url, stateFn, errorFn);
 		}
