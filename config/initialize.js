@@ -1,10 +1,6 @@
-const cors = require('cors');
 const bodyParser = require('body-parser');
 
 module.exports = (app) =>{
-    // allow cross-origin requests
-    app.router.use(cors());
-
     // parse request body
     app.router.use(bodyParser.urlencoded({extended: false}));
     app.router.use(bodyParser.json());
