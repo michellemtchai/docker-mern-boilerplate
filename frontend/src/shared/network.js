@@ -18,7 +18,8 @@ export const fetchConfig = (props, stateFnName, {
 
 export const fetchData = (url, config)=>{
 	url = setUpURL(url, config);
-	const cacheData = localStorage.getItem(url);
+	let storageName = `${config.method} ${url}`;
+	const cacheData = localStorage.getItem(storageName);
 	if(cacheData){
 		let data = JSON.parse(cacheData);
 		if(timeDiffMinutes(data.date) > config.minStored){
@@ -45,7 +46,7 @@ export const fetchData = (url, config)=>{
 		})
 		.then(data=>{
 			if(!error){
-				localStorage.setItem(url, JSON.stringify({
+				localStorage.setItem(storageName, JSON.stringify({
 					date: Date.now(),
 					data: data,
 				}));
