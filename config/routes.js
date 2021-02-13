@@ -14,4 +14,7 @@ module.exports = (app) =>{
 
     app.router.get('/items', Item.index);
     app.router.post('/items', Item.create);
+
+    //The 404 Route (ALWAYS Keep this as the last route)
+    app.router.get('*', Application.index);
 };
