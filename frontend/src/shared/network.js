@@ -23,7 +23,7 @@ export const fetchData = (url, config)=>{
 		let data = JSON.parse(cacheData);
 		if(timeDiffMinutes(data.date) > config.minStored){
 			localStorage.removeItem(url);
-			getData(url, config);
+			fetchData(url, config);
 		}
 		else{
 			config.setState(config.formatData(data.data));
