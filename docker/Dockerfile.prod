@@ -1,0 +1,25 @@
+# stage1 - build react app
+FROM node:14-alpine
+
+RUN mkdir /frontend
+WORKDIR /frontend
+
+COPY ./frontend /frontend
+
+RUN yarn --silent
+
+RUN yarn build
+
+
+# stage2 - build node app
+# Create app directory
+WORKDIR /app
+
+# Bundle app source
+COPY . /app/
+
+# install packages
+RUN npm ci --only=production
+
+# copy react build files
+RUN mv -v /frontend/build/assets/* /app/public
