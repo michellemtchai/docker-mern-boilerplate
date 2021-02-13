@@ -1,4 +1,4 @@
-import * as actions from '../actions/sample';
+import * as actions from '../actions/app';
 
 export const initialState = {
 	data: {},
@@ -6,7 +6,7 @@ export const initialState = {
 	loaded: false
 }
 
-export const sample = (state = initialState, action)=>{
+export const app = (state = initialState, action)=>{
 	switch (action.type) {
 		case actions.SET_DATA:
 			return {...state,

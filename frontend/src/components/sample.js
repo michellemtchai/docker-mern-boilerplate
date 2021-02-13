@@ -2,7 +2,7 @@ import React from 'react';
 
 class Sample extends React.Component {
 	render() {
-        let items = this.props.sample.data.items;
+        let items = this.props.app.data.items;
 		return items ?
 			<div>
                 <p>
