@@ -3,22 +3,25 @@ import * as actions from '../actions/app';
 export const initialState = {
 	data: {},
 	error: '',
-	loaded: false
+	fetching: 0
 }
 
 export const app = (state = initialState, action)=>{
 	switch (action.type) {
 		case actions.SET_DATA:
 			return {...state,
-				data: {
-					items: action.data,
-					loaded: true,
-				}
+				fetching: state.fetching-1,
+				data: action.data,
+				error: '',
 			};
 		case actions.SET_ERROR:
 			return {...state,
 				error: action.data,
-				loaded: true,
+				fetching: state.fetching-1,
+			};
+		case actions.START_FETCHING:
+			return {...state,
+				fetching: state.fetching+1,
 			};
 		default:
 		  	return state;
