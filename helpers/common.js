@@ -5,6 +5,10 @@ module.exports = common = {
     isArray: (obj)=>{
         return Object.prototype.toString.call(obj) === '[object Array]';
     },
+    emptyString: (str)=>{
+        return typeof str == 'string'?
+            str.trim().length == 0 : false;
+    },
     renderError: (res, message)=>{
         res.status(404).json({ msg: message });
     },
@@ -17,7 +21,7 @@ module.exports = common = {
             if(!common.hasKey(params, i)){
                 lacking.push(i);
             }
-            else if(typeof params[i] == 'string' && params[i].length == 0){
+            else if(common.emptyString(params[i])){
                 lacking.push(i);
             }
         })
