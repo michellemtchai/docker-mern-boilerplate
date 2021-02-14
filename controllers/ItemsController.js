@@ -2,10 +2,7 @@ const Controller = require('../classes/Controller');
 const common = require('../helpers/common');
 
 module.exports = class ItemsController extends Controller {
-    constructor(app){
-        super(app);
-        this.Item = this.models['Item'];
-    }
+    Item = this.models['Item'];
 
     /**
      * @api {get} /items Get all items
