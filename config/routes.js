@@ -13,6 +13,7 @@ module.exports = (app) =>{
     app.router.get('/', ApplicationController.index);
 
     app.router.get('/items', ItemsController.index);
+    app.router.get('/items/:id', ItemsController.show);
     app.router.post('/items', ItemsController.create);
 
     //The 404 Route (ALWAYS Keep this as the last route)

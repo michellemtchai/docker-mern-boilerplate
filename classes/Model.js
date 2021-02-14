@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const common = require('../helpers/common');
+const db = require('../helpers/db');
 
 module.exports = class Model {
     constructor(name, schema){
@@ -26,6 +27,15 @@ module.exports = class Model {
             .catch(common.errorResponse(res));
     }
 
+    findById = (res, next, id) =>{
+        this.find(res, next, {
+            query: [
+                db.equals('_id', id)
+            ],
+            limit: 1
+        });
+    }
+
     save = (params, res, next)=>{
         let model = new this.model(params);
         model.save()
@@ -35,6 +45,10 @@ module.exports = class Model {
 
     renderAll = (res, options = {})=>{
         this.find(res, i=>res.json(i), options);
+    }
+
+    renderOneWithId = (res, id)=>{
+        this.findById(res, i=>res.json(i), id);
     }
 };
 

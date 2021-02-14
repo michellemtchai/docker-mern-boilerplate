@@ -40,6 +40,37 @@ module.exports = class ItemsController extends Controller {
      }
 
     /**
+     * @api {get} /items/:id Get item with :id
+     * @apiVersion 1.0.0
+     * @apiGroup Item
+     *
+     * @apiParam {String} id ID of item.
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *       "id": "60288e070bf0ed00182b8883"
+     *     }
+     *
+     * @apiSuccess {String} name Name of item.
+     * @apiSuccess {Date} date Time this item was made.
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "name": "cats",
+     *       "date": "1970-01-01T00:00:00.000Z"
+     *     }
+     *
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "msg": "{error message}"
+     *     }
+     */
+    show = (req, res) => {
+        this.Item.renderOneWithId(res, req.params.id);
+    }
+
+    /**
      * @api {post} /items Creates new item
      * @apiVersion 1.0.0
      * @apiGroup Item
