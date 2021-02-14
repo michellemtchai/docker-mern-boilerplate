@@ -1,6 +1,6 @@
+const Controller = require('../classes/Controller');
 const common = require('../helpers/common');
 const db = require('../helpers/db');
-const Controller = require('../classes/Controller');
 
 module.exports = class ItemController extends Controller {
     constructor(app){
