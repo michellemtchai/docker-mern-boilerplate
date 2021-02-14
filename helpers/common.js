@@ -17,6 +17,9 @@ module.exports = common = {
             if(!common.hasKey(params, i)){
                 lacking.push(i);
             }
+            else if(typeof params[i] == 'string' && params[i].length == 0){
+                lacking.push(i);
+            }
         })
         if(lacking.length == 0){
             action();
