@@ -2,7 +2,7 @@ const Controller = require('../classes/Controller');
 const common = require('../helpers/common');
 const db = require('../helpers/db');
 
-module.exports = class ItemController extends Controller {
+module.exports = class ItemsController extends Controller {
     constructor(app){
         super(app);
         this.Item = this.models['Item'];
