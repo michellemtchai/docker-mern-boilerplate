@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
+const Model = require('../classes/Model');
 let models = {};
 let controllers = {};
 
@@ -8,7 +9,7 @@ module.exports = self = {
     models: models,
     controllers: controllers,
     createModel: (name, schema)=>{
-        return mongoose.model(name, new mongoose.Schema(schema));
+        return new Model(name, schema);
     },
     fileAction: (dir, action)=>{
         fs.readdirSync(dir).forEach(file=>

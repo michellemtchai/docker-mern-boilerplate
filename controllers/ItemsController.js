@@ -30,7 +30,7 @@ module.exports = class ItemsController extends Controller {
      *     }
      */
     index = (req, res) => {
-        db.renderAll(this.Item, res, {
+        this.Item.renderAll(res, {
             sort: {
                 date: -1
             },
@@ -71,8 +71,7 @@ module.exports = class ItemsController extends Controller {
         let required = ['name'];
         let createItem = ()=>{
             let permitted = common.permit(req.body, ['name']);
-            let model = new this.Item(permitted);
-            db.modelSave(model, res, common.redirect(res, '/items'));
+            this.Item.save(permitted, res, common.redirect(res, '/items'));
         };
         common.requiredParams(req.body, res, required, createItem);
     }
