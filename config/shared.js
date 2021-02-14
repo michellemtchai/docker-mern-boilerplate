@@ -1,11 +1,9 @@
-const mongoose = require('mongoose');
 const fs = require('fs');
 const Model = require('../classes/Model');
 let models = {};
 let controllers = {};
 
 module.exports = self = {
-    mongoose: mongoose,
     models: models,
     controllers: controllers,
     createModel: (name, schema)=>{

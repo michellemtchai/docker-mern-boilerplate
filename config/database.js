@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 module.exports = (app) =>{
     let {
         DB_USERNAME,
@@ -8,14 +10,13 @@ module.exports = (app) =>{
     } = process.env;
 
     let mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATA}?authSource=admin`;
-    app.shared.mongoose
-        .connect(
-            mongoUri,
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            }
-        )
-        .then(() => console.log('MongoDB Connected'))
-        .catch(err => console.log(err));
+    mongoose.connect(
+        mongoUri,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
+    )
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
 };
