@@ -40,7 +40,4 @@ module.exports = common = {
         })
         return result;
     },
-    redirect: (res, url)=>{
-        return ()=>res.redirect(url);
-    },
 };

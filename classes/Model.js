@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 const common = require('../helpers/common');
 const db = require('../helpers/db');
 
@@ -9,38 +10,75 @@ module.exports = class Model {
         );
     }
 
-    find = (res, next, options = {})=>{
-        let conditions = options.query?
-            options.query : {};
-        let query = this.model.find(mergeConditions(conditions));
-        if(common.hasKey(options, 'sort')){
-            query = query.sort(options.sort);
+    find = (res, next, {
+        query = [], sort = null, limit = null, select = null
+    }= {})=>{
+
+        let model = this.model.find(...query);
+        if(sort){
+            model = model.sort(sort);
         }
-        if(common.hasKey(options, 'limit')){
-            query = query.limit(options.limit);
+        if(limit){
+            model = model.limit(limit);
         }
-        if(common.hasKey(options, 'select')){
-            query = query.select(options.select);
+        if(select){
+            model = model.select(select);
         }
-        query
-            .then(next)
-            .catch(common.errorResponse(res));
+        handleDbAction(res, next, model, 'exec');
     }
 
     findById = (res, next, id) =>{
-        this.find(res, next, {
-            query: [
-                db.equals('_id', id)
-            ],
-            limit: 1
-        });
+        let [err, params] = idParam(res, id);
+        let nextAction = data=>next(data[0]);
+        if(!err){
+            this.find(res, nextAction, {
+                query: [params]
+            });
+        }
+        else{
+            next(null);
+        }
     }
 
-    save = (params, res, next)=>{
+    createOne = (res, next, params)=>{
         let model = new this.model(params);
-        model.save()
-            .then(next)
-            .catch(common.errorResponse(res));
+        handleDbAction(res, next, model, 'save');
+    }
+
+    createMany = (res, next, entries)=>{
+        handleDbAction(res, next, this.model, 'create', [entries]);
+    }
+
+    update = (res, next, id, change)=>{
+        let handleData = (data)=>{
+            if(data){
+                handleDbAction(res, next, change(data), 'save');
+            } else{
+                invalidId(res, id);
+            }
+        }
+        this.findById(res, handleData, id);
+    }
+
+    remove = (res, next, params)=>{
+        let handleData = (data)=>{
+            handleDbAction(res, i=>next(data), this.model,
+                'deleteMany', params);
+        }
+        this.find(res, handleData, {
+            query: params
+        })
+    }
+
+    removeById = (res, next, id)=>{
+        let handleData = (data)=>{
+            if(data){
+                handleDbAction(res, next, data, 'remove');
+            } else{
+                invalidId(res, id);
+            }
+        }
+        this.findById(res, handleData, id);
     }
 
     renderAll = (res, options = {})=>{
@@ -48,18 +86,55 @@ module.exports = class Model {
     }
 
     renderOneWithId = (res, id)=>{
-        this.findById(res, i=>res.json(i), id);
+        let handleData = (data)=>{
+            if(data){
+                res.json(data);
+            } else {
+                invalidId(res, id);
+            }
+        }
+        this.findById(res, handleData, id);
     }
+
 };
 
 // private functions
-const mergeConditions = (conditions)=>{
-    if(common.isArray(conditions)){
-        let combined = {};
-        conditions.forEach(i=>combined = {...combined, ...i});
-        return combined;
+const handleDbAction = (res, next, model, fnName, params = [])=>{
+    try {
+        let t = timeOut(res);
+        model[fnName](...params, (err, data)=>{
+            clearTimeout(t);
+            if(!err){
+                next(data);
+            }
+            else{
+                common.renderError(res, err.message);
+            }
+        });
     }
-    else {
-        return conditions;
+    catch (err){
+        common.renderError(res, err);
     }
+}
+
+const timeOut = (res)=>{
+    let timeout = 10000;
+    return setTimeout(()=>{
+        common.renderError(res, 'Database Timeout');
+    }, timeout);
+}
+
+const idParam = (res, id)=>{
+    try{
+        return [false, {
+            _id: ObjectId(id)
+        }];
+    }
+    catch(err){
+        return [true, {}];
+    }
+}
+
+const invalidId = (res, id)=>{
+    common.renderError(res, `'${id}' is not a valid id.`);
 }
