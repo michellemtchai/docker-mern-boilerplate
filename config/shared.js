@@ -24,7 +24,8 @@ module.exports = self = {
     },
     importControllers: (app)=>{
         self.fileAction('controllers', (file)=>{
-            controllers[file] = require('../controllers/'+file)(app);
+            let controller = require('../controllers/'+file);
+            controllers[file] = new controller(app);
         });
     },
 };
