@@ -2,7 +2,7 @@ import React from 'react';
 
 class FetchIndicator extends React.Component {
 	render() {
-        let fetching = this.props.app.fetching;
+        let fetching = this.props.state.fetching;
 		return (
             fetching > 0 ?
             <p className='fetching'>

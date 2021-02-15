@@ -2,9 +2,9 @@ import React from 'react';
 
 class Error extends React.Component {
 	render() {
-		return this.props.app.error?
+		return this.props.state.error?
 			<p className='error'>
-                {this.props.app.error}
+                {this.props.state.error}
 			</p>:
             '';
   	}

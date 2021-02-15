@@ -1,4 +1,4 @@
-import * as actions from '../actions/app';
+import * as actions from '../actions/state';
 
 export const initialState = {
 	data: {},
@@ -6,7 +6,7 @@ export const initialState = {
 	fetching: 0
 }
 
-export const app = (state = initialState, action)=>{
+export const state = (state = initialState, action)=>{
 	switch (action.type) {
 		case actions.SET_DATA:
 			return {...state,
