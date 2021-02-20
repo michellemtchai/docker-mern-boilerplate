@@ -42,7 +42,7 @@ class Sample extends React.Component {
                 {Items(this, data)}
                 {ItemCreator(this)}
 			</div> :
-            null
+            ''
         );
   	}
 }

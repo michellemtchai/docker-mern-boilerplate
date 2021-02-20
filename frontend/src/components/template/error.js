@@ -6,7 +6,7 @@ class Error extends React.Component {
 			<p className='error'>
                 {this.props.state.error}
 			</p>:
-            null
+            ''
         );
   	}
 }
