@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBar from '../components/navBar';
-import Error from '../components/error';
-import FetchIndicator from '../components/fetchIndicator';
+import NavBar from '../components/template/navBar';
+import Error from '../components/template/error';
+import FetchIndicator from '../components/template/fetchIndicator';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
