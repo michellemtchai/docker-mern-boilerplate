@@ -16,11 +16,13 @@ class App extends React.Component {
             component={()=><Component {...this.props}/>}
         />);
     }
+
     componentDidMount(){
         getAllItems(this.props);
     }
-	render() {
-		return(
+
+    render() {
+        return(
             <div className='content'>
                 <NavBar {...this.props}/>
                 <Error {...this.props}/>
@@ -32,7 +34,7 @@ class App extends React.Component {
                 </Switch>
             </div>
         );
-  	}
+    }
 }
 
 export default App;
