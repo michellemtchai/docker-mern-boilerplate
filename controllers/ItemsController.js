@@ -100,8 +100,9 @@ module.exports = class ItemsController extends Controller {
         let required = ['name'];
         let createItem = ()=>{
             let permitted = common.permit(req.body, ['name']);
-            this.Item.createOne(res, i=>res.redirect('/items'),
-                permitted);
+            this.Item.createOne(
+                res, i=>res.json(i), permitted
+            );
         };
         common.requiredParams(req.body, res, required, createItem);
     }

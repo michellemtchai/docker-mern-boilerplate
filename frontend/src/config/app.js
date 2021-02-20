@@ -8,6 +8,14 @@ import { routes } from '../config/routes';
 import { getAllItems } from './fetch';
 
 class App extends React.Component {
+    route = (key, i)=>{
+        let Component = routes[key].component;
+        return (<Route key={'route-'+i}
+            exact={routes[key].exact? true: false}
+            path={key}
+            component={()=><Component {...this.props}/>}
+        />);
+    }
     componentDidMount(){
         getAllItems(this.props);
     }
@@ -19,13 +27,7 @@ class App extends React.Component {
                 <FetchIndicator {...this.props}/>
                 <Switch>
                     {Object.keys(routes).map((key,i)=>
-                        <Route key={'route-'+i}
-                            exact={routes[key].exact? true: false}
-                            path={key}
-                            component={()=>
-                                (new routes[key].component(this.props)).render()
-                            }
-                        />
+                        this.route(key,i)
                     )}
                 </Switch>
             </div>
