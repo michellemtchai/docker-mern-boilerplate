@@ -1,12 +1,12 @@
 export const baseUrl = process.env.APP_ENV == 'development' ?
 	`http://localhost:${process.env.PORT}`: '';
 
-export const fetchConfig = (props, stateFnName, {
+export const fetchConfig = (props, setStateFn, {
 		method = 'GET', params = {},
 		formatData = data=>data, minStored = 0
 	}={})=>{
 	return {
-	    setState: props[stateFnName],
+	    setState: setStateFn,
 	    setError: props.setError,
 	    fetching: props.startFetching,
 	    formatData: formatData,
@@ -16,11 +16,11 @@ export const fetchConfig = (props, stateFnName, {
 	};
 }
 
-export const fetchAPIData = (props, url, setStateFnName, {
+export const fetchAPIData = (props, url, setStateFn, {
         method = 'GET', params = {},
         formatData = data=>data, minStored = 0
     }={})=>{
-    fetchData(baseUrl+url, fetchConfig(props, setStateFnName, {
+    fetchData(baseUrl+url, fetchConfig(props, setStateFn, {
         formatData: formatData,
     }));
 }
