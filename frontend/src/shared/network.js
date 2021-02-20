@@ -17,11 +17,13 @@ export const fetchConfig = (props, setStateFn, {
 }
 
 export const fetchAPIData = (props, url, setStateFn, {
-        method = 'GET', params = {},
-        formatData = data=>data, minStored = 0
+        method, params, formatData, minStored
     }={})=>{
     fetchData(baseUrl+url, fetchConfig(props, setStateFn, {
+    	method: method,
+    	params: params,
         formatData: formatData,
+        minStored: minStored,
     }));
 }
 

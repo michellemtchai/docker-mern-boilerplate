@@ -3,6 +3,7 @@ import { fetchAPIData } from '../shared/network';
 export const getAllItems = (props)=>{
     fetchAPIData(props, '/items', props.setData, {
         formatData: (data)=>{
+            console.log('fetch')
             return {
                 items: data
             }
