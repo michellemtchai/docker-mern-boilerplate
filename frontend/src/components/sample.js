@@ -32,7 +32,7 @@ class Sample extends React.Component {
         });
     }
     deleteItem = (item)=>{
-        return ()=>api.removeItemById(this.props, item._id);
+        api.removeItemById(this.props, item._id);
     }
 	render() {
         let data = this.props.state.data;
@@ -96,7 +96,7 @@ const ItemEditor = (self, item)=>(
 );
 
 const DeleteButton = (self, item)=>(
-    <button onClick={self.deleteItem(item)}>
+    <button onClick={()=>self.deleteItem(item)}>
         Delete
     </button>
 );
