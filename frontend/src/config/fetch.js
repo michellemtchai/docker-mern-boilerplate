@@ -1,12 +1,13 @@
-import { fetchAPIData } from '../shared/network';
+import * as items from '../api/items';
 
-export const getAllItems = (props)=>{
-    fetchAPIData(props, '/items', props.setData, {
-        formatData: (data)=>{
-            return {
-                items: data
-            }
-        }
-    });
+export const fetch = {
+    ...items,
 }
 
+let fetchList = [
+    fetch.getAllItems
+];
+
+export const fetchAll = (props)=>{
+    fetchList.forEach(getData=>getData(props));
+}

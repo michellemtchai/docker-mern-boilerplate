@@ -8,7 +8,7 @@ class FetchIndicator extends React.Component {
             <p className='fetching'>
                 Data Fetching from {fetching} resources...
             </p>:
-            ''
+            null
         );
   	}
 }

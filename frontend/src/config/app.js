@@ -5,7 +5,7 @@ import FetchIndicator from '../components/template/fetchIndicator';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
-import { getAllItems } from './fetch';
+import { fetchAll } from './fetch';
 
 class App extends React.Component {
     route = (key, i)=>{
@@ -18,7 +18,7 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-        getAllItems(this.props);
+        fetchAll(this.props);
     }
 
     render() {
