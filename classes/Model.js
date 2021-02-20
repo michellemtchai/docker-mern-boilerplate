@@ -27,11 +27,12 @@ module.exports = class Model {
         handleDbAction(res, next, model, 'exec');
     }
 
-    findById = (res, next, id) =>{
+    findById = (res, next, id, select=null) =>{
         let [err, params] = idParam(res, id);
         let nextAction = data=>next(data[0]);
         if(!err){
             this.find(res, nextAction, {
+                select: select,
                 query: [params]
             });
         }
@@ -85,7 +86,7 @@ module.exports = class Model {
         this.find(res, i=>res.json(i), options);
     }
 
-    renderOneWithId = (res, id)=>{
+    renderOneWithId = (res, id, select = null)=>{
         let handleData = (data)=>{
             if(data){
                 res.json(data);
@@ -93,7 +94,7 @@ module.exports = class Model {
                 invalidId(res, id);
             }
         }
-        this.findById(res, handleData, id);
+        this.findById(res, handleData, id, select);
     }
 
 };

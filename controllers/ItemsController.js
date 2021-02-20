@@ -64,7 +64,9 @@ module.exports = class ItemsController extends Controller {
      *     }
      */
     show = (req, res) => {
-        this.Item.renderOneWithId(res, req.params.id);
+        this.Item.renderOneWithId(res, req.params.id, {
+            __v: 0
+        });
     }
 
     /**
