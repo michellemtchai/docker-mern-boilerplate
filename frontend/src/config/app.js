@@ -5,7 +5,7 @@ import FetchIndicator from '../components/template/fetchIndicator';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
-import { fetchAll } from './fetch';
+import { fetchAll } from './api';
 
 class App extends React.Component {
     route = (key, i)=>{

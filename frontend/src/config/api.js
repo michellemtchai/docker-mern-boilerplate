@@ -1,11 +1,11 @@
 import * as items from '../api/items';
 
-export const fetch = {
+export const api = {
     ...items,
 }
 
 let fetchList = [
-    fetch.getAllItems
+    api.getAllItems
 ];
 
 export const fetchAll = (props)=>{

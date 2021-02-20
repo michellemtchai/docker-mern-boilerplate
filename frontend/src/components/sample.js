@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetch } from '../config/fetch';
+import { api } from '../config/api';
 
 class Sample extends React.Component {
     input = React.createRef();
@@ -19,12 +19,12 @@ class Sample extends React.Component {
         })
     }
     createItem = ()=>{
-        fetch.createItem(this.props, {
+        api.createItem(this.props, {
             name: this.input.current.value,
         })
     }
     updateItem = (item)=>{
-        fetch.updateItem(this.props, item._id, {
+        api.updateItem(this.props, item._id, {
             name: this.edit.current.value,
         });
         this.setState({
@@ -32,7 +32,7 @@ class Sample extends React.Component {
         });
     }
     deleteItem = (item)=>{
-        return ()=>fetch.removeItemById(this.props, item._id);
+        return ()=>api.removeItemById(this.props, item._id);
     }
 	render() {
         let data = this.props.state.data;
