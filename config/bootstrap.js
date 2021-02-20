@@ -9,14 +9,14 @@ module.exports = (router, express) =>{
     require('./initialize')(app);
 
     // connect to mongodb
-    require('./database')(app);
+    require('./database')(()=>{
+        // create schema
+        app.shared.importModels(app);
 
-    // create schema
-    app.shared.importModels(app);
+        // loads controllers
+        app.shared.importControllers(app);
 
-    // loads controllers
-    app.shared.importControllers(app);
-
-    // loads routes
-    require('./routes')(app);
+        // loads routes
+        require('./routes')(app);
+    });
 };

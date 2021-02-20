@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = (app) =>{
+module.exports = (actions) =>{
     let {
         DB_USERNAME,
         DB_PASSWORD,
@@ -17,6 +17,9 @@ module.exports = (app) =>{
             useUnifiedTopology: true
         }
     )
-    .then(() => console.log('MongoDB Connected'))
+    .then(() =>{
+        console.log('MongoDB Connected');
+        actions();
+    })
     .catch(err => console.log(err));
 };
