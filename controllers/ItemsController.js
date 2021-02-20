@@ -28,7 +28,7 @@ module.exports = class ItemsController extends Controller {
     index = (req, res) => {
         this.Item.renderAll(res, {
             sort: {
-                date: -1
+                created: -1
             },
             select: {
                 __v: 0
