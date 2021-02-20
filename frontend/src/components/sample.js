@@ -38,19 +38,8 @@ class Sample extends React.Component {
         let data = this.props.state.data;
 		return (Object.keys(data).length > 0 ?
 			<div>
-                <p>
-                    This is a sample component. It lists the items from route <b>GET &#47;items</b>
-                </p>
-                <ul>
-                    {data.items.map((item, i)=>
-                        <li key={'item-'+i}>
-                            {this.state.index != i?
-                                Item(this, item, i):
-                                ItemEditor(this, item)
-                            }
-                        </li>
-                    )}
-                </ul>
+                <p>{text}</p>
+                {Items(this, data)}
                 {ItemCreator(this)}
 			</div> :
             null
@@ -58,6 +47,20 @@ class Sample extends React.Component {
   	}
 }
 
+const text = 'This is a sample component. It lists the items from route GET /items';
+
+const Items = (self, data)=>(
+    <ul>
+        {data.items.map((item, i)=>
+            <li key={'item-'+i}>
+                {self.state.index != i?
+                    Item(self, item, i):
+                    ItemEditor(self, item)
+                }
+            </li>
+        )}
+    </ul>
+);
 
 const Item = (self, item, i)=>(
     <span>
@@ -90,12 +93,12 @@ const ItemEditor = (self, item)=>(
             Cancel
         </button>
     </span>
-)
+);
 
 const DeleteButton = (self, item)=>(
     <button onClick={self.deleteItem(item)}>
         Delete
     </button>
-)
+);
 
 export default Sample;
