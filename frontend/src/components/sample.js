@@ -3,11 +3,33 @@ import { fetch } from '../config/fetch';
 
 class Sample extends React.Component {
     input = React.createRef();
+    edit = React.createRef();
+    state = {
+        index: -1
+    }
 
+    editItem = (index)=>{
+        this.setState({
+            index: index,
+        })
+    }
+    cancelEdit = ()=>{
+        this.setState({
+            index: -1,
+        })
+    }
     createItem = ()=>{
         fetch.createItem(this.props, {
             name: this.input.current.value,
         })
+    }
+    updateItem = (item)=>{
+        fetch.updateItem(this.props, item._id, {
+            name: this.edit.current.value,
+        });
+        this.setState({
+            index: -1
+        });
     }
     deleteItem = (item)=>{
         return ()=>fetch.removeItemById(this.props, item._id);
@@ -22,23 +44,58 @@ class Sample extends React.Component {
                 <ul>
                     {data.items.map((item, i)=>
                         <li key={'item-'+i}>
-                            {item.name}
-                            <button onClick={this.deleteItem(item)}>
-                                Delete
-                            </button>
+                            {this.state.index != i?
+                                Item(this, item, i):
+                                ItemEditor(this, item)
+                            }
                         </li>
                     )}
                 </ul>
-                <div>
-                    <input ref={this.input} type='text'/>
-                    <button onClick={this.createItem}>
-                        Create New Item
-                    </button>
-                </div>
+                {ItemCreator(this)}
 			</div> :
             null
         );
   	}
 }
+
+
+const Item = (self, item, i)=>(
+    <span>
+        {item.name}
+        <button onClick={()=>self.editItem(i)}>
+            Edit Item
+        </button>
+        {DeleteButton(self, item)}
+    </span>
+);
+
+const ItemCreator = (self)=>(
+    <div>
+        <input ref={self.input} type='text'/>
+        <button onClick={self.createItem}>
+            Create New Item
+        </button>
+    </div>
+);
+
+const ItemEditor = (self, item)=>(
+    <span>
+        <input ref={self.edit}
+            defaultValue={item.name}
+            type='text'/>
+        <button onClick={()=>self.updateItem(item)}>
+            Save Changes
+        </button>
+        <button onClick={self.cancelEdit}>
+            Cancel
+        </button>
+    </span>
+)
+
+const DeleteButton = (self, item)=>(
+    <button onClick={self.deleteItem(item)}>
+        Delete
+    </button>
+)
 
 export default Sample;
