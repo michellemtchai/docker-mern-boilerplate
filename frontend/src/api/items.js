@@ -3,7 +3,6 @@ import { fetchAPIData } from '../shared/network';
 export const getAllItems = (props)=>{
     fetchAPIData(props, '/items', props.setData, {
         formatData: (data)=>{
-            console.log('fetch')
             return {
                 items: data
             }
@@ -18,6 +17,7 @@ export const getItemById = (props, id)=>{
 export const createItem = (props, params)=>{
     let updateItemsList = (data)=>{
         console.log('new', data);
+        props.endFetching();
         getAllItems(props);
     }
     fetchAPIData(props, '/items/', updateItemsList, {
@@ -29,6 +29,7 @@ export const createItem = (props, params)=>{
 export const updateItem = (props, id, params)=>{
     let updateItemsList = (data)=>{
         console.log('updated', data);
+        props.endFetching();
         getAllItems(props);
     }
     fetchAPIData(props, `/items/${id}`, updateItemsList, {
@@ -40,6 +41,7 @@ export const updateItem = (props, id, params)=>{
 export const removeItemById = (props, id)=>{
     let updateItemsList = (data)=>{
         console.log('deleted', data);
+        props.endFetching();
         getAllItems(props);
     }
     fetchAPIData(props, `/items/${id}`, updateItemsList, {

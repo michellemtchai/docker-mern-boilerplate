@@ -33,7 +33,8 @@ export const fetchData = (url, config)=>{
 	const cacheData = localStorage.getItem(storageName);
 	if(cacheData){
 		let data = JSON.parse(cacheData);
-		if(timeDiffMinutes(data.date) > config.minStored){
+		if(config.minStored == 0||
+			timeDiffMinutes(data.date) > config.minStored){
 			localStorage.removeItem(storageName);
 			fetchData(url, config);
 		}

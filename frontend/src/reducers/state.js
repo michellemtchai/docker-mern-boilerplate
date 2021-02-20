@@ -23,6 +23,10 @@ export const state = (state = initialState, action)=>{
 			return {...state,
 				fetching: state.fetching+1,
 			};
+		case actions.END_FETCHING:
+			return {...state,
+				fetching: state.fetching-1,
+			};
 		default:
 		  	return state;
 	}

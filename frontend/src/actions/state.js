@@ -1,6 +1,7 @@
 export const SET_DATA = 'SET_DATA';
 export const SET_ERROR = 'SET_ERROR';
 export const START_FETCHING = 'START_FETCHING';
+export const END_FETCHING = 'END_FETCHING';
 
 const setData = (data) => {
     return {
@@ -19,6 +20,11 @@ const startFetching = () => {
         type: START_FETCHING,
     }
 }
+const endFetching = () => {
+    return {
+        type: END_FETCHING,
+    }
+}
 
 export const map = (dispatch) => {
   return {
@@ -30,6 +36,9 @@ export const map = (dispatch) => {
     },
     startFetching: ()=>{
         dispatch(startFetching());
+    },
+    endFetching: ()=>{
+        dispatch(endFetching());
     },
   };
 };

@@ -2,6 +2,13 @@ import React from 'react';
 import { fetch } from '../config/fetch';
 
 class Sample extends React.Component {
+    input = React.createRef();
+
+    createItem = ()=>{
+        fetch.createItem(this.props, {
+            name: this.input.current.value,
+        })
+    }
     deleteItem = (item)=>{
         return ()=>fetch.removeItemById(this.props, item._id);
     }
@@ -22,6 +29,12 @@ class Sample extends React.Component {
                         </li>
                     )}
                 </ul>
+                <div>
+                    <input ref={this.input} type='text'/>
+                    <button onClick={this.createItem}>
+                        Create New Item
+                    </button>
+                </div>
 			</div> :
             null
         );
