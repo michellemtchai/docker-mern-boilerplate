@@ -6,7 +6,17 @@ const db = require('../helpers/db');
 module.exports = class Model {
     constructor(name, schema){
         this.model = mongoose.model(name,
-            new mongoose.Schema(schema)
+            new mongoose.Schema({
+                ...schema,
+                created: {
+                    type: Date,
+                    default: Date.now
+                },
+                updated: {
+                    type: Date,
+                    default: Date.now
+                }
+            })
         );
     }
 
@@ -51,9 +61,15 @@ module.exports = class Model {
     }
 
     update = (res, next, id, change)=>{
+        let changeAction = (data)=>{
+            data = change(data);
+            data.updated = new Date();
+            return data;
+        };
         let handleData = (data)=>{
             if(data){
-                handleDbAction(res, next, change(data), 'save');
+                handleDbAction(res, next,
+                    changeAction(data), 'save');
             } else{
                 invalidId(res, id);
             }
@@ -101,20 +117,21 @@ module.exports = class Model {
 
 // private functions
 const handleDbAction = (res, next, model, fnName, params = [])=>{
+    let t = timeOut(res);
     try {
-        let t = timeOut(res);
         model[fnName](...params, (err, data)=>{
             clearTimeout(t);
             if(!err){
                 next(data);
             }
             else{
-                common.renderError(res, err.message);
+                throw new Error(err);
             }
         });
     }
     catch (err){
-        common.renderError(res, err);
+        clearTimeout(t);
+        common.renderError(res, err.message);
     }
 }
 

@@ -3,10 +3,6 @@ module.exports = (app) =>{
         name: {
             type: String,
             required: true
-        },
-        date: {
-            type: Date,
-            default: Date.now
         }
     })
 };
