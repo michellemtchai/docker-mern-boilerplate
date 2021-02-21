@@ -19,7 +19,7 @@
                 <link rel="stylesheet" href="/assets/<%= css[i] %>">
             <% } %>
             <% for (let i=0; i< scripts.length; i++) { %>
-                <script src="/assets/<%= scripts[i] %>"></script>
+                <script defer="defer" src="/assets/<%= scripts[i] %>"></script>
             <% } %>
         <% } %>
     </body>
