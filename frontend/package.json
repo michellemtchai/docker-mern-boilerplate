@@ -31,5 +31,8 @@
   "scripts": {
     "build": "webpack --mode=production",
     "start": "webpack-dev-server"
+  },
+  "browser": {
+    "fs": false
   }
 }
