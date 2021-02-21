@@ -1,7 +1,7 @@
 const Controller = require('../classes/Controller');
 const common = require('../helpers/common');
 
-module.exports = class ItemsController extends Controller {
+class ItemsController extends Controller {
     Item = this.models['Item'];
 
     /**
@@ -177,3 +177,5 @@ module.exports = class ItemsController extends Controller {
         this.Item.removeById(res, i=>res.json(i), req.params.id);
     }
 };
+
+module.exports = ItemsController;

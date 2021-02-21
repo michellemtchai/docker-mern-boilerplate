@@ -1,6 +1,6 @@
 const Controller = require('../classes/Controller');
 
-module.exports = class ApplicationController extends Controller {
+class ApplicationController extends Controller {
     /**
      * @api {get} / Get index page
      * @apiSampleRequest off
@@ -11,3 +11,5 @@ module.exports = class ApplicationController extends Controller {
         res.render('pages/index');
     }
 };
+
+module.exports = ApplicationController;
