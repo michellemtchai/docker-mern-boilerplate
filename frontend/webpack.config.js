@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const getEnv = (list)=>{
     let env = {};
@@ -57,6 +58,7 @@ module.exports = {
             inject: true,
             template: path.join(__dirname, 'public/index.html'),
         }),
+        // new WebpackManifestPlugin(),
     ],
     devServer: {
         host: '0.0.0.0',

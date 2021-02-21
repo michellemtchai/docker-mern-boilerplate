@@ -11,6 +11,7 @@ module.exports = (app) =>{
     *
     */
     app.router.get('/', ApplicationController.index);
+    app.router.get('/robots.txt', ApplicationController.robots);
 
     app.router.get('/items', ItemsController.index);
     app.router.get('/items/:id', ItemsController.show);

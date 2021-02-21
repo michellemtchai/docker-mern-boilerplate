@@ -1,7 +1,11 @@
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 module.exports = (app) =>{
+    // use gzip compression
+    app.router.use(compression());
+
     if(process.env.APP_ENV == 'development'){
         // allow cross-origin requests
         app.router.use(cors());

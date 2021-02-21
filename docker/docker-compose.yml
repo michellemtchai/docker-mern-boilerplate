@@ -6,8 +6,7 @@ services:
         depends_on:
             - mongodb
     mongodb:
-        image: mongo:4.0
-        command: mongod --smallfiles
+        image: mongo
         ports:
             - ${DB_PORT}:${DB_PORT}
         volumes:
