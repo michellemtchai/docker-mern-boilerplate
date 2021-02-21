@@ -20,7 +20,7 @@ WORKDIR /app
 COPY . /app/
 
 # install packages
-RUN npm ci --only=production
+RUN yarn --silent
 
 # copy react build files
 RUN mv -v /frontend/build/assets/* /app/public

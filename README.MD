@@ -32,14 +32,8 @@ http://localhost:3000
 ```
 
 ## Tools
-### Mongo Express
-You can access the database content using your browser via the following url:
-```
-http://localhost:8081
-```
-
 ### API Documentation
-You can generate api documentation into the folder `.apidocs` by running the following command:
+You can generate api documentation into the folder `apidocs` by running the following command:
 ```
-docker-compose run app npm run doc
+docker-compose run app yarn doc
 ```

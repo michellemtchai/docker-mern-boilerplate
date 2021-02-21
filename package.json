@@ -10,9 +10,9 @@
     "license": "MIT",
     "main": "server.js",
     "scripts": {
-        "prod": "node server.js",
+        "build": "node server.js",
         "start": "supervisor -i /public,/frontend server.js ",
-        "doc": "apidoc -i . -o ./.apidocs/ -f \".*\\.js$\" -f \".*\\.ts$\" -e ./node_modules -e ./.apidocs"
+        "doc": "apidoc -i . -o ./apidocs/ -f \".*\\.js$\" -f \".*\\.ts$\" -e ./node_modules -e ./apidocs"
     },
     "dependencies": {
         "apidoc": "^0.26.0",

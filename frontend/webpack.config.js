@@ -84,7 +84,9 @@ module.exports = {
             new CssMinimizerPlugin(),
         ]
     },
-    node: {
-       fs: "empty"
+    resolve: {
+        fallback: {
+            fs: false
+        }
     }
 };

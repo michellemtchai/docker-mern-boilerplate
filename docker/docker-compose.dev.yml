@@ -13,6 +13,6 @@ services:
         build:
             context: ..
             dockerfile: ./docker/Dockerfile.dev
-        command: npm start
+        command: yarn start
         volumes:
             - ..:/app
