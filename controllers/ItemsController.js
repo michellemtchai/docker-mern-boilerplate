@@ -85,10 +85,10 @@ module.exports = class ItemsController extends Controller {
      *
      * @apiSuccessExample {json} Success-Response:
      *     HTTP/1.1 200 OK
-     *     [{
+     *     {
      *       "name": "cats",
      *       "date": "1970-01-01T00:00:00.000Z"
-     *     }]
+     *     }
      *
      * @apiErrorExample {json} Error-Response:
      *     HTTP/1.1 404 Not Found
