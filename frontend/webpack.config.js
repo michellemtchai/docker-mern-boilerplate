@@ -4,6 +4,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const getEnv = (list)=>{
     let env = {};
@@ -15,15 +16,12 @@ const getEnv = (list)=>{
 
 module.exports = {
     mode: 'development',
-    entry: [
-        'whatwg-fetch',
-        'core-js/es/promise',
-        'core-js/es/string',
-        './src/index.js'
-    ],
+    entry: {
+        main: path.resolve(__dirname, 'src/index.js'),
+    },
     output: {
         path: path.join(__dirname, 'build/assets'),
-        filename: 'bundle.js'
+        filename: '[name].[contenthash:8].js',
     },
     devtool: 'source-map',
     module: {
@@ -54,12 +52,15 @@ module.exports = {
         ])),
         new MiniCssExtractPlugin({
             filename: "bundle.css"
-        })
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: path.join(__dirname, 'public/index.html'),
+        }),
     ],
     devServer: {
         host: '0.0.0.0',
-        publicPath: '/assets/',
-        contentBase: 'public',
+        publicPath: '/',
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,
         compress: true,
@@ -82,6 +83,24 @@ module.exports = {
                 sourceMap: true
             }),
             new CssMinimizerPlugin(),
-        ]
+        ],
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        let name = module.context.match(
+                            /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+                        )[1];
+                        return `npm.${name.replace('@', '')}`;
+                    },
+                },
+            },
+        },
+        moduleIds: 'deterministic',
     },
 };

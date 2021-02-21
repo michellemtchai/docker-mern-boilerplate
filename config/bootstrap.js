@@ -10,6 +10,9 @@ module.exports = (router, express) =>{
 
     // connect to mongodb
     require('./database')(()=>{
+        // get list of all assets
+        app.shared.getAssets(app);
+
         // create schema
         app.shared.importModels(app);
 

@@ -12,8 +12,12 @@
                 to see the frontend.
             </p>
         <% } else { %>
-            <script src="/assets/bundle.js"></script>
-            <link rel="stylesheet" href="/assets/bundle.css">
+            <% for (let i=0; i< css.length; i++) { %>
+                <link rel="stylesheet" href="/assets/<%= css[i] %>">
+            <% } %>
+            <% for (let i=0; i< scripts.length; i++) { %>
+                <script src="/assets/<%= scripts[i] %>"></script>
+            <% } %>
         <% } %>
     </body>
 </html>

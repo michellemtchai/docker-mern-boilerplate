@@ -24,3 +24,4 @@ RUN yarn --silent
 
 # copy react build files
 RUN mv -v /frontend/build/assets/* /app/public
+RUN rm /app/public/index.html

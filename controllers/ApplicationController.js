@@ -8,7 +8,10 @@ class ApplicationController extends Controller {
      * @apiGroup Application
      */
     index = (req, res) => {
-        res.render('pages/index');
+        res.render('pages/index', {
+            css: this.css,
+            scripts: this.scripts,
+        });
     }
 };
 
