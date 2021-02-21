@@ -9,8 +9,8 @@ class ApplicationController extends Controller {
      */
     index = (req, res) => {
         res.render('pages/index', {
-            css: this.css,
-            scripts: this.scripts,
+            css: this.assets.css,
+            scripts: this.assets.scripts,
         });
     }
 };
