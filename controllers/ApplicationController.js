@@ -1,6 +1,6 @@
 const Controller = require('../classes/Controller');
 
-class ApplicationController extends Controller {
+module.exports = class ApplicationController extends Controller {
     /**
      * @api {get} / Get index page
      * @apiSampleRequest off
@@ -25,5 +25,3 @@ class ApplicationController extends Controller {
         res.send("User-agent: *\nDisallow: /");
     }
 };
-
-module.exports = ApplicationController;

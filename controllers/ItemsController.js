@@ -1,8 +1,16 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 
-class ItemsController extends Controller {
+module.exports = class ItemsController extends Controller {
     Item = this.models['Item'];
+    createRequired = [
+        'name',
+    ];
+    updateRequired = [
+        'name',
+    ];
+    updatePermitted = [
+        'name',
+    ];
 
     /**
      * @api {get} /items Get all items
@@ -97,14 +105,12 @@ class ItemsController extends Controller {
      *     }
      */
     create = (req, res) => {
-        let required = ['name'];
         let createItem = ()=>{
-            let permitted = common.permit(req.body, ['name']);
             this.Item.createOne(
-                res, i=>res.json(i), permitted
+                res, i=>res.json(i), this.createPermitted(req)
             );
         };
-        common.requiredParams(req.body, res, required, createItem);
+        this.requiredParams(req.body, res, this.createRequired, createItem);
     }
 
     /**
@@ -135,15 +141,13 @@ class ItemsController extends Controller {
      *     }
      */
     update = (req, res) => {
-        let required = ['name'];
         let next = i=>res.json(i);
         let updateItem = ()=>{
-            this.Item.update(res, next, req.params.id, (model)=>{
-                model.name = req.body.name;
-                return model;
-            });
+            this.Item.update(res, next, req.params.id,
+                this.updateModel(req.body, this.updatePermitted)
+            );
         };
-        common.requiredParams(req.body, res, required, updateItem);
+        this.requiredParams(req.body, res, this.updateRequired, updateItem);
     }
 
     /**
@@ -177,5 +181,3 @@ class ItemsController extends Controller {
         this.Item.removeById(res, i=>res.json(i), req.params.id);
     }
 };
-
-module.exports = ItemsController;
