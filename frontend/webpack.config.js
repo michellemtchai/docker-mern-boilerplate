@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const getEnv = (list)=>{
     let env = {};
@@ -17,12 +16,17 @@ const getEnv = (list)=>{
 
 module.exports = {
     mode: 'development',
-    entry: {
-        main: path.resolve(__dirname, 'src/index.js'),
-    },
+    entry: [
+        'whatwg-fetch',
+        'core-js/es/promise',
+        'core-js/es/string',
+        'core-js/es/array',
+        './src/index.js'
+    ],
     output: {
         path: path.join(__dirname, 'build/assets'),
-        filename: '[name].[contenthash:8].js',
+        filename: 'bundle.js',
+        publicPath: '',
     },
     devtool: 'source-map',
     module: {
@@ -39,9 +43,6 @@ module.exports = {
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
                 }
             }
         ]
@@ -58,10 +59,9 @@ module.exports = {
             inject: true,
             template: path.join(__dirname, 'public/index.html'),
         }),
-        // new WebpackManifestPlugin(),
     ],
     devServer: {
-        host: '0.0.0.0',
+        host: process.env.HOST,
         publicPath: '/',
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,
@@ -86,23 +86,5 @@ module.exports = {
             }),
             new CssMinimizerPlugin(),
         ],
-        runtimeChunk: 'single',
-        splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name(module) {
-                        let name = module.context.match(
-                            /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-                        )[1];
-                        return `npm.${name.replace('@', '')}`;
-                    },
-                },
-            },
-        },
-        moduleIds: 'deterministic',
     },
 };

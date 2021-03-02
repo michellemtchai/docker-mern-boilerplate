@@ -1,10 +1,10 @@
-import css from './index.css';
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import history from './shared/history';
+import { history } from './shared/router';
 
 import { configureStore } from './store';
 import { Container } from './shared/map';

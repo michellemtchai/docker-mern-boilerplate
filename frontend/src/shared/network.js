@@ -3,7 +3,8 @@ export const baseUrl = process.env.APP_ENV == 'development' ?
 
 export const fetchConfig = (props, setStateFn, {
 		method = 'GET', params = {},
-		formatData = data=>data, minStored = 0
+		formatData = data=>data, minStored = 0,
+		next = null,
 	}={})=>{
 	return {
 	    setState: setStateFn,
@@ -13,17 +14,19 @@ export const fetchConfig = (props, setStateFn, {
 	    method: method,
 	    params: params,
 	    minStored: minStored,
+	    next: next ? next : (err)=>{},
 	};
 }
 
 export const fetchAPIData = (props, url, setStateFn, {
-        method, params, formatData, minStored
+        method, params, formatData, minStored, next
     }={})=>{
     fetchData(baseUrl+url, fetchConfig(props, setStateFn, {
     	method: method,
     	params: params,
         formatData: formatData,
         minStored: minStored,
+        next: next,
     }));
 }
 
@@ -40,6 +43,7 @@ export const fetchData = (url, config)=>{
 		}
 		else{
 			config.setState(config.formatData(data.data));
+			config.next(false);
 		}
 	}
 	else{
@@ -63,13 +67,17 @@ export const fetchData = (url, config)=>{
 					data: data,
 				}));
 				config.setState(config.formatData(data));
+				config.next(false);
 			}
 			else{
 				config.setError(data.msg);
+				config.next(true);
 			}
 		})
 		.catch(error=>{
 			config.setError(error.toString());
+			console.log('config', config)
+			config.next(true);
 	    });
 	}
 }
@@ -107,7 +115,12 @@ export const paramsToQueryString = (params) =>{
 		.join('&');
 }
 
+const oneSecond = 1000;
+const oneMinute = 60*oneSecond;
+const oneHour = 60*oneMinute;
+const oneDay = 24*oneHour;
+
 export const timeDiffMinutes = (date)=>{
 	let diffMs = (new Date() - date);
-	return Math.round(((diffMs % 86400000) % 3600000) / 60000);
+	return Math.round(((diffMs % oneDay) % oneHour) / oneMinute);
 }

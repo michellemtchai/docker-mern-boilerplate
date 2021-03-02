@@ -5,9 +5,11 @@ export const api = {
 }
 
 let fetchList = [
-    api.getAllItems
+    api.getAllItems,
 ];
 
 export const fetchAll = (props)=>{
     fetchList.forEach(getData=>getData(props));
 }
+
+export const totalFetches = fetchList.length;
