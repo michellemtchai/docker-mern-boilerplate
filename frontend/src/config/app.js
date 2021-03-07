@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import Template from '../components/template/template';
 
 import { Switch, Route } from 'react-router-dom';
-import { routes } from '../config/routes';
+import { routes } from '../config';
 import { fetchAll } from './api';
 
 class App extends React.Component {
@@ -26,7 +26,6 @@ class App extends React.Component {
     }
 
     render() {
-        let data = this.props.state.data;
         return(
             <div className='content'>
                 <Switch>
