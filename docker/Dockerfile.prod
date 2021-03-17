@@ -7,6 +7,7 @@ WORKDIR /app
 COPY . /app/
 
 # install packages
+RUN yarn global add react-scripts
 RUN yarn install --production
 
 # Build React app
@@ -18,4 +19,6 @@ RUN yarn build
 WORKDIR /app
 
 # copy react build files
-RUN mv -v /frontend/build/assets/* /app/public
+RUN mv /app/frontend/build/* /app/public
+RUN node /app/docker/deploy.js
+RUN rm /app/public/index.html

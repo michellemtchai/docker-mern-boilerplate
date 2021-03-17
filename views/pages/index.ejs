@@ -15,7 +15,9 @@
                 to see the frontend.
             </p>
         <% } else { %>
-            <p>You're in production</p>
+            <% for(let i = 0; i < assets.js.length; i++){ %>
+                <script src="<%= process.env.APP_PUBLIC_URL %>/<%= assets.js[i] %>"></script>
+            <% } %>
         <% } %>
     </body>
 </html>
