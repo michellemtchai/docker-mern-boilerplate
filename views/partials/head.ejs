@@ -1,11 +1,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="theme-color" content="#000000" />
+<meta name="theme-color" content="<%= process.env.APP_THEME_COLOR %>" />
 <meta name="description" content="<%= process.env.APP_DESC %>" />
 
-<link rel="icon" href="/assets/favicon.ico" />
-<link rel="apple-touch-icon" href="/assets/logo192.png" />
-<link rel="manifest" href="/assets/manifest.json" />
+<% for(let i = 0; i < icons.length; i++){ %>
+    <link rel="<%= icons[i].rel %>" href="<%= icons[i].src %>" />
+<% } %>
+<link rel="manifest" href="<%= process.env.APP_PUBLIC_URL %>/manifest.json" />
 
 <title><%= process.env.APP_NAME %></title>

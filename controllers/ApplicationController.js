@@ -1,4 +1,5 @@
 const Controller = require('../classes/Controller');
+const manifestData = require('../assets/manifest');
 
 module.exports = class ApplicationController extends Controller {
     /**
@@ -9,19 +10,7 @@ module.exports = class ApplicationController extends Controller {
      */
     index = (req, res) => {
         res.render('pages/index', {
-            css: this.assets.css,
-            scripts: this.assets.scripts,
+            icons: manifestData.icons,
         });
-    }
-
-    /**
-     * @api {get} /robots.txt Get robots.txt
-     * @apiSampleRequest off
-     * @apiVersion 1.0.0
-     * @apiGroup Application
-     */
-    robots = (req, res) => {
-        res.type('text/plain');
-        res.send("User-agent: *\nDisallow: /");
-    }
+    };
 };

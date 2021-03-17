@@ -4,15 +4,15 @@
     border: #f5c6cb 1px solid;
     display: inline-block;
 }
-.error dd {
+.error li {
     display: inline-block;
 }
-.error dd:first-child {
-    width: calc(100% - 35px);
+.error li:first-child {
+    width: calc(100% - 55px);
     overflow-wrap: break-word;
     padding: 20px 0 20px 20px;
 }
-.error dd:nth-child(2) {
+.error li:nth-child(2) {
     width: 15px;
     line-height: 20px;
     font-size: 20px;
@@ -37,6 +37,9 @@
 nav ul {
     list-style: none;
     padding: 0;
+}
+nav ul li {
+    display: inline-block;
 }
 nav ul li a {
     margin-right: 30px;

@@ -1,27 +1,21 @@
 # stage1 - build react app
 FROM node:14-alpine
 
-RUN mkdir /frontend
-WORKDIR /frontend
-
-COPY ./frontend /frontend
-COPY .env .
-
-RUN yarn --silent
-
-RUN yarn build
-
-
-# stage2 - build node app
-# Create app directory
 WORKDIR /app
 
 # Bundle app source
 COPY . /app/
 
 # install packages
-RUN yarn --silent
+RUN yarn install --production
+
+# Build React app
+WORKDIR /app/frontend
+RUN yarn install --production
+RUN yarn build
+
+# Go back to app root
+WORKDIR /app
 
 # copy react build files
 RUN mv -v /frontend/build/assets/* /app/public
-RUN rm /app/public/index.html

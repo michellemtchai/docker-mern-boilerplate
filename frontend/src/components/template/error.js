@@ -6,10 +6,10 @@ class Error extends React.Component {
     };
     render() {
         return this.props.state.error ? (
-            <dl className="error">
-                <dd>{this.props.state.error}</dd>
-                <dd onClick={this.closeError}>&times;</dd>
-            </dl>
+            <ul className="error">
+                <li>{this.props.state.error}</li>
+                <li onClick={this.closeError}>&times;</li>
+            </ul>
         ) : (
             ''
         );

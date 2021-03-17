@@ -1,8 +1,32 @@
-version: "3.3"
+version: '3.3'
 services:
     app:
         ports:
-            - ${PORT}:${PORT}
+            - ${APP_PORT}:${APP_PORT}
+            - ${FRONTEND_PORT}:${FRONTEND_PORT}
+        environment:
+            APP_ENV: ${APP_ENV}
+            APP_PORT: ${APP_PORT}
+            APP_HOST: ${APP_HOST}
+            APP_NAME: ${APP_NAME}
+            APP_DESC: ${APP_DESC}
+            APP_PUBLIC_URL: ${APP_PUBLIC_URL}
+            APP_START_URL: ${APP_START_URL}
+            APP_THEME_COLOR: ${APP_THEME_COLOR}
+            APP_BACKGROUND_COLOR: ${APP_BACKGROUND_COLOR}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_DATA: ${DB_DATA}
+            FRONTEND_PORT: ${FRONTEND_PORT}
+            REACT_APP_TITLE: ${APP_NAME}
+            REACT_APP_DESC: ${APP_DESC}
+            REACT_APP_ENV: ${APP_ENV}
+            REACT_APP_PORT: ${APP_PORT}
+            PUBLIC_URL: ${APP_PUBLIC_URL}
+            FAST_REFRESH: ${FAST_REFRESH}
+            CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
         depends_on:
             - mongodb
     mongodb:

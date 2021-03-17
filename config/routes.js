@@ -1,20 +1,24 @@
 // central location to define routes
-module.exports = (app) =>{
+module.exports = (app) => {
     let {
         ApplicationController,
+        PwaController,
         ItemsController,
     } = app.shared.controllers;
 
     /**
-    *
-    * You can start defining your routes below.
-    *
-    */
+     *
+     * You can start defining your routes below.
+     *
+     */
     app.router.get('/', ApplicationController.index);
-    app.router.get('/robots.txt', ApplicationController.robots);
+    app.router.get(
+        process.env.APP_PUBLIC_URL + '/manifest.json',
+        PwaController.manifest
+    );
+    app.router.get('/robots.txt', PwaController.robots);
 
     app.router.get('/items', ItemsController.index);
-    app.router.get('/items/:id', ItemsController.show);
     app.router.post('/items', ItemsController.create);
     app.router.put('/items/:id', ItemsController.update);
     app.router.delete('/items/:id', ItemsController.destroy);
