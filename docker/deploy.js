@@ -1,4 +1,8 @@
+require('dotenv').config({ path: '/app/.env' });
 const fs = require('fs');
+const ejs = require('ejs');
+const manifestData = require('../assets/manifest');
+
 const cssRegex = /(<link\s+href=\")([a-zA-Z\/\.0-9]+)(\"\s+rel=\"stylesheet\">)/g;
 const jsRegex = /(<script\s+src=\")([\/a-zA-Z.0-9]+)(\"><\/script>)/g;
 
@@ -31,7 +35,7 @@ const readFile = (file, action) => {
         }
     });
 };
-const writeToFile = (file, data) => {
+const writeFile = (file, data) => {
     fs.writeFile(file, data, (err) => {
         if (err) {
             console.log(err.message);
@@ -41,15 +45,26 @@ const writeToFile = (file, data) => {
     });
 };
 
+const rewriteIndex = (css, js) => {
+    readFile('/app/views/pages/index.ejs', (data) => {
+        let html = ejs.render(data, {
+            rootPath: '/app/views/',
+            icons: manifestData.icons,
+            process: {
+                env: process.env,
+            },
+            assets: {
+                css: css,
+                js: js,
+            },
+        });
+        writeFile('/app/public/index.html', html);
+    });
+};
+
 readFile('/app/public/index.html', (data) => {
-    writeToFile('/app/public/setup.js', getScript(data));
+    writeFile('/app/public/setup.js', getScript(data));
     let css = getFileList(data, cssRegex);
     let js = ['setup.js', ...getFileList(data, jsRegex)];
-    writeToFile(
-        '/app/assets/files.json',
-        JSON.stringify({
-            css: css,
-            js: js,
-        })
-    );
+    rewriteIndex(css, js);
 });

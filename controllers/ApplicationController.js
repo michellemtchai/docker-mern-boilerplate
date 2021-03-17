@@ -9,12 +9,13 @@ module.exports = class ApplicationController extends Controller {
      * @apiGroup Application
      */
     index = (req, res) => {
-        res.render('pages/index', {
-            icons: manifestData.icons,
-            assets:
-                process.env.APP_ENV === 'production'
-                    ? require('../assets/files.json')
-                    : null,
-        });
+        if (process.env.APP_ENV === 'production') {
+            res.sendFile('/app/public/index.html');
+        } else {
+            res.render('pages/index', {
+                rootPath: '../',
+                icons: manifestData.icons,
+            });
+        }
     };
 };

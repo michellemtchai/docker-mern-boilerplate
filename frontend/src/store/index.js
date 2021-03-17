@@ -1,4 +1,4 @@
-if (process.env.REACT_APP_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     module.exports = require('./conf.prod');
 } else {
     module.exports = require('./conf.dev');

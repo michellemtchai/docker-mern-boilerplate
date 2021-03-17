@@ -3,7 +3,7 @@ const manifestData = require('../assets/manifest');
 
 module.exports = class PwaController extends Controller {
     /**
-     * @api {get} /manifest.json Get manifest.json
+     * @api {get} %PUBLIC_URL%/manifest.json Get manifest.json
      * @apiSampleRequest off
      * @apiVersion 1.0.0
      * @apiGroup PWA
@@ -20,5 +20,25 @@ module.exports = class PwaController extends Controller {
      */
     robots = (req, res) => {
         res.sendFile('/app/assets/robots.txt');
+    };
+
+    /**
+     * @api {get} /service-worker.js Get service-worker.js
+     * @apiSampleRequest off
+     * @apiVersion 1.0.0
+     * @apiGroup PWA
+     */
+    sw = (req, res) => {
+        res.sendFile('/app/assets/service-worker.js');
+    };
+
+    /**
+     * @api {get} /service-worker.js.map Get service-worker.js.map
+     * @apiSampleRequest off
+     * @apiVersion 1.0.0
+     * @apiGroup PWA
+     */
+    swMap = (req, res) => {
+        res.sendFile('/app/assets/service-worker.js.map');
     };
 };
