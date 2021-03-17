@@ -14,6 +14,10 @@ module.exports = class ApplicationController extends Controller {
         } else {
             res.render('pages/index', {
                 rootPath: '../',
+                assets: {
+                    js: [],
+                    css: [],
+                },
                 icons: manifestData.icons,
             });
         }
