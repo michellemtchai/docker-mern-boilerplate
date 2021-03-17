@@ -29,7 +29,7 @@
 }
 .error,
 .fetching {
-    width: 100% !important;
+    width: calc(100% - 40px);
     border-radius: 10px;
     margin: 20px auto;
     font-weight: bold;
