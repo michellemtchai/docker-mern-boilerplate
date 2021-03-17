@@ -15,10 +15,7 @@ class Template extends React.Component {
         let data = this.props.state.data;
         return (
             <div>
-                <NavBar
-                    route={this.props.match.path}
-                    {...this.props}
-                />
+                <NavBar route={location} {...this.props} />
                 <Error {...this.props} />
                 <FetchIndicator {...this.props} />
                 <h1>{route.title}</h1>
