@@ -4,16 +4,23 @@ import { routes, navlinks, routeKey } from '../../config';
 
 class NavBar extends React.Component {
     currentPage = (link) => {
-        let route = this.props.route;
-        let children = routes[route].children
-            ? routes[route].children
+        let currentPath = this.props.location.pathname;
+        let route = this.props.match.path;
+        let currLink = this.props.routes[link];
+        currLink = currLink ? currLink : {};
+        let children = currLink.children
+            ? currLink.children
             : [];
         let current =
-            routeKey(link) == route || children.includes(route);
+            link == route ||
+            link == currentPath ||
+            children.includes(route) ||
+            children.includes(currentPath);
         return current ? 'curr-page' : '';
     };
     title = (link) => {
-        return routes[routeKey(link)].title;
+        return this.props.routes[routeKey(this.props, link)]
+            .title;
     };
     render() {
         return (
@@ -23,7 +30,9 @@ class NavBar extends React.Component {
                         <li key={'link-' + i}>
                             <Link
                                 to={link}
-                                className={this.currentPage(link)}
+                                className={this.currentPage(
+                                    link
+                                )}
                             >
                                 {this.title(link)}
                             </Link>

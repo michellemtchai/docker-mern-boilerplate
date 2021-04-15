@@ -4,24 +4,26 @@ import NotFound from '../pages/notFound';
 
 export const navlinks = ['/', '/about-us', '/random'];
 
-export const routes = {
-    '/': {
-        component: Home,
-        title: 'Home',
-        exact: true,
-    },
-    '/about-us': {
-        component: AboutUs,
-        title: 'About Us',
-    },
-    '': {
-        component: NotFound,
-        title: 'Page Not Found',
-    },
+export const routes = (props) => {
+    return {
+        '/': {
+            component: Home,
+            title: 'Home',
+            exact: true,
+        },
+        '/about-us': {
+            component: AboutUs,
+            title: 'About Us',
+        },
+        '': {
+            component: NotFound,
+            title: 'Page Not Found',
+        },
+    };
 };
-export const routeKey = (location) => {
+export const routeKey = (props, location) => {
     let index = 0;
-    let paths = Object.keys(routes);
+    let paths = Object.keys(props.routes);
     while (index < paths.length) {
         let path = paths[index];
         if (path === '') {

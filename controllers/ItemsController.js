@@ -3,7 +3,7 @@ const Controller = require('../classes/Controller');
 module.exports = class ItemsController extends Controller {
     Item = this.models['Item'];
     createRequired = ['name'];
-    updatePermitted = ['name'];
+    updateForbidden = ['_id'];
 
     /**
      * @api {get} /items Get all items
@@ -17,7 +17,7 @@ module.exports = class ItemsController extends Controller {
      * @apiSuccess {Date} items.updated_at Time this Item was updated.
      */
     index = (req, res) => {
-        this.Item.renderAll(res, {
+        this.renderAll(this.Item, res, {
             select: {
                 __v: 0,
                 created: 0,
@@ -39,18 +39,8 @@ module.exports = class ItemsController extends Controller {
      * @apiSuccess {Date} updated_at Time this Item was updated.
      */
     create = (req, res) => {
-        let createItem = () => {
-            this.Item.createOne(
-                res,
-                (i) => res.json(i),
-                this.createPermitted(req)
-            );
-        };
-        this.requiredParams(
-            req.body,
-            res,
-            this.createRequired,
-            createItem
+        this.createModel(res, this.Item, req.body, (i) =>
+            res.json(i)
         );
     };
 
@@ -67,20 +57,12 @@ module.exports = class ItemsController extends Controller {
      * @apiSuccess {Date} updated_at Time this Item was updated.
      */
     update = (req, res) => {
-        let next = (i) => res.json(i);
-        let updateItem = () => {
-            this.Item.update(
-                res,
-                next,
-                req.params.id,
-                this.updateModel(req.body, this.updatePermitted)
-            );
-        };
-        this.requiredParams(
-            req.body,
+        this.updateModelById(
             res,
-            this.updateRequired,
-            updateItem
+            this.Item,
+            req.params.id,
+            req.body,
+            (i) => res.json(i)
         );
     };
 
@@ -97,6 +79,8 @@ module.exports = class ItemsController extends Controller {
      * @apiSuccess {Date} updated_at Time this Item was updated.
      */
     destroy = (req, res) => {
-        this.Item.removeById(res, (i) => res.json(i), req.params.id);
+        this.Item.removeById(res, req.params.id, (i) =>
+            res.json(i)
+        );
     };
 };

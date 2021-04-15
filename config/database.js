@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = (actions) => {
+module.exports = (app, actions) => {
     let {
         DB_USERNAME,
         DB_PASSWORD,
@@ -15,10 +15,12 @@ module.exports = (actions) => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
+            useFindAndModify: false,
         })
         .then(() => {
             console.log('MongoDB Connected');
-            actions();
+            app.db = mongoose.connection.db;
+            actions(app);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log('Database Error', err));
 };

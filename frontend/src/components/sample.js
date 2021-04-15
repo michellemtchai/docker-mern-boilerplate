@@ -64,8 +64,10 @@ const Items = (self, data) => (
 
 const Item = (self, item, i) => (
     <span>
-        {item.name}
-        <button onClick={() => self.editItem(i)}>Edit Item</button>
+        {item.name + ' '}
+        <button onClick={() => self.editItem(i)}>
+            Edit Item
+        </button>
         {DeleteButton(self, item)}
     </span>
 );
@@ -73,13 +75,19 @@ const Item = (self, item, i) => (
 const ItemCreator = (self) => (
     <div>
         <input ref={self.input} type="text" />
-        <button onClick={self.createItem}>Create New Item</button>
+        <button onClick={self.createItem}>
+            Create New Item
+        </button>
     </div>
 );
 
 const ItemEditor = (self, item) => (
     <span>
-        <input ref={self.edit} defaultValue={item.name} type="text" />
+        <input
+            ref={self.edit}
+            defaultValue={item.name}
+            type="text"
+        />{' '}
         <button onClick={() => self.updateItem(item)}>
             Save Changes
         </button>
