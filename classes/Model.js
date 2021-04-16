@@ -8,7 +8,7 @@ module.exports = class Model {
         this.error = (...i) => logger('Error', ...i);
         this.attributes = [...Object.keys(schema), '_id'];
         this.model = mongoose.model(
-            name,
+            `${process.env.APP_DB_PREFIX}-${name}`,
             new mongoose.Schema({
                 ...schema,
                 created: {
