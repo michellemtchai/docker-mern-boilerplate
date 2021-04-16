@@ -1,7 +1,4 @@
 const path = require('path');
-require('dotenv').config({
-    path: path.resolve(__dirname, '../.env'),
-});
 const fs = require('fs');
 const ejs = require('ejs');
 const manifestData = require('../assets/manifest');

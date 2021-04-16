@@ -10,10 +10,10 @@ module.exports = class ApplicationController extends Controller {
      */
     index = (req, res) => {
         if (process.env.APP_ENV === 'production') {
-            res.sendFile('/app/public/index.html');
+            res.sendFile(`${this.rootPath}/public/index.html`);
         } else {
             res.render('pages/index', {
-                rootPath: '../',
+                rootPath: this.rootPath,
                 assets: {
                     js: [],
                     css: [],
