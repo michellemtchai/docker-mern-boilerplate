@@ -11,7 +11,8 @@
     "main": "server.js",
     "scripts": {
         "all": "./run.sh",
-        "build": "node server.js",
+        "prod": "node server.js",
+        "build": "bash ./heroku-build.sh",
         "start": "nodemon server.js ",
         "doc": "apidoc -i . -o ./docs/ -f \".*\\.js$\" -f \".*\\.ts$\" -e ./node_modules -e ./docs"
     },

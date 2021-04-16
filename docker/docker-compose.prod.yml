@@ -6,5 +6,5 @@ services:
         build:
             context: ..
             dockerfile: ./docker/Dockerfile.prod
-        command: yarn build
+        command: yarn prod
         restart: always
