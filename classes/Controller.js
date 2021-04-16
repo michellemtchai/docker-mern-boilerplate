@@ -6,6 +6,7 @@ module.exports = class Controller {
         this.db = app.db;
         this.log = (...i) => logger('Info', ...i);
         this.error = (...i) => logger('Error', ...i);
+        this.rootPath = app.rootPath;
         this.models = app.shared.models;
         this.assets = app.shared.assets;
         this.createRequired = [];

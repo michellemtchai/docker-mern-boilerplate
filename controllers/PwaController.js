@@ -19,7 +19,7 @@ module.exports = class PwaController extends Controller {
      * @apiGroup PWA
      */
     robots = (req, res) => {
-        res.sendFile('/app/assets/robots.txt');
+        res.sendFile(`${this.rootPath}/assets/robots.txt`);
     };
 
     /**
@@ -29,7 +29,9 @@ module.exports = class PwaController extends Controller {
      * @apiGroup PWA
      */
     sw = (req, res) => {
-        res.sendFile('/app/assets/service-worker.js');
+        res.sendFile(
+            `${this.rootPath}/assets/service-worker.js`
+        );
     };
 
     /**
@@ -39,6 +41,8 @@ module.exports = class PwaController extends Controller {
      * @apiGroup PWA
      */
     swMap = (req, res) => {
-        res.sendFile('/app/assets/service-worker.js.map');
+        res.sendFile(
+            `${this.rootPath}/assets/service-worker.js.map`
+        );
     };
 };
