@@ -12,7 +12,7 @@ const logger = (type, who, messages) => {
                 typeof message == 'object'
                     ? JSON.stringify(message, null, 2)
                     : message;
-            if (process.env.DATA_BACKEND_CONSOLE_LOG === '1') {
+            if (process.env.APP_SERVER_CONSOLE_LOG === '1') {
                 consoleLogger(`[${type}]`, who, '--', message);
             }
             winston.log(typeName, `${who} -- ${message}`);
