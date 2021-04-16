@@ -48,7 +48,7 @@ export const fetchData = (url, config) => {
 	url = setUpURL(url, config);
 	let storageName = `${config.method} ${url}`;
 	const cacheData = localStorage.getItem(storageName);
-	if (cacheData) {
+	if (cacheData && config.method === 'GET') {
 		let data = JSON.parse(cacheData);
 		if (
 			config.minStored == 0 ||
@@ -76,13 +76,15 @@ export const fetchData = (url, config) => {
 			})
 			.then((data) => {
 				if (!error) {
-					localStorage.setItem(
-						storageName,
-						JSON.stringify({
-							date: Date.now(),
-							data: data,
-						})
-					);
+					if (config.method === 'GET') {
+						localStorage.setItem(
+							storageName,
+							JSON.stringify({
+								date: Date.now(),
+								data: data,
+							})
+						);
+					}
 					config.setState(config.formatData(data));
 					config.next(false);
 				} else {

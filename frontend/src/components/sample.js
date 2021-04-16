@@ -87,7 +87,7 @@ const ItemEditor = (self, item) => (
             ref={self.edit}
             defaultValue={item.name}
             type="text"
-        />{' '}
+        />
         <button onClick={() => self.updateItem(item)}>
             Save Changes
         </button>

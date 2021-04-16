@@ -3,7 +3,7 @@ const Controller = require('../classes/Controller');
 module.exports = class ItemsController extends Controller {
     Item = this.models['Item'];
     createRequired = ['name'];
-    updateForbidden = ['_id'];
+    updateForbidden = [];
 
     /**
      * @api {get} /items Get all items
