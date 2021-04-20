@@ -12,7 +12,7 @@
     "scripts": {
         "all": "./run.sh",
         "prod": "node server.js",
-        "build": "bash ./heroku-build.sh",
+        "build": "bash ./deploy/heroku-build.sh",
         "start": "nodemon server.js ",
         "doc": "apidoc -i . -o ./docs/ -f \".*\\.js$\" -f \".*\\.ts$\" -e ./node_modules -e ./docs"
     },
@@ -29,6 +29,9 @@
         "compression": "^1.7.4",
         "serve-favicon": "^2.5.0",
         "winston": "^3.3.3"
+    },
+    "devDependencies": {
+        "prompt-sync": "^4.2.0"
     },
     "nodemonConfig": {
         "ignore": [

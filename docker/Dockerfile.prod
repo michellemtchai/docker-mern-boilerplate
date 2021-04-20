@@ -6,7 +6,8 @@ WORKDIR /app
 COPY . /app/
 
 # install packages
-RUN yarn global add react-scripts
+RUN apk add git
+RUN yarn global add react-scripts heroku
 RUN yarn install --production
 
 # Build React app
@@ -20,5 +21,5 @@ WORKDIR /app
 # copy react build files
 RUN mv /app/frontend/build/service-worker.js* /app/assets
 RUN mv /app/frontend/build/* /app/public
-RUN node /app/docker/deploy.js
+RUN node /app/deploy/build-frontend.js
 RUN rm .env

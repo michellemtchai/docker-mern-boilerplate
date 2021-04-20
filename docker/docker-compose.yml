@@ -16,6 +16,8 @@ services:
             APP_THEME_COLOR: ${APP_THEME_COLOR}
             APP_BACKGROUND_COLOR: ${APP_BACKGROUND_COLOR}
             APP_SERVER_CONSOLE_LOG: ${APP_SERVER_CONSOLE_LOG}
+            APP_DB_PREFIX: ${APP_DB_PREFIX}
+            DB_TYPE: ${DB_TYPE}
             DB_USERNAME: ${DB_USERNAME}
             DB_PASSWORD: ${DB_PASSWORD}
             DB_HOST: ${DB_HOST}
